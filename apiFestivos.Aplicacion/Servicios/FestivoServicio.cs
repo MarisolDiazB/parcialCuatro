@@ -73,45 +73,56 @@ namespace apiFestivos.Aplicacion.Servicios
         {
             DayOfWeek diaSemana = fecha.DayOfWeek;
             int diasLunes = ((int)DayOfWeek.Monday - (int)diaSemana + 7) % 7;
+              if (diasLunes == 0)
+                {
+                    diasLunes = 7;
+                }
             return AgregarDias(fecha, diasLunes);
         }
+        
 
-        private FechaFestivo ObtenerFestivo(int año, Festivo festivo)
-        {
-            FechaFestivo fechaFestivo = null;
-            switch (festivo.IdTipo)
+public FechaFestivo ObtenerFestivo(int año, Festivo festivo)
+{
+    FechaFestivo? fechaFestivo = null;
+    switch (festivo.IdTipo)
+    {
+        case 1:
+            fechaFestivo = new FechaFestivo
             {
-                case 1:
-                    fechaFestivo = new FechaFestivo
-                    {
-                        Fecha = new DateTime(año, festivo.Mes, festivo.Dia),
-                        Nombre = festivo.Nombre
-                    };
-                    break;
-                case 2:
-                    fechaFestivo = new FechaFestivo
-                    {
-                        Fecha = SiguienteLunes(new DateTime(año, festivo.Mes, festivo.Dia)),
-                        Nombre = festivo.Nombre
-                    };
-                    break;
-                case 3:
-                    fechaFestivo = new FechaFestivo
-                    {
-                        Fecha = AgregarDias(ObtenerInicioSemanaSanta(año), festivo.DiasPascua),
-                        Nombre = festivo.Nombre
-                    };
-                    break;
-                case 4:
-                    fechaFestivo = new FechaFestivo
-                    {
-                        Fecha = SiguienteLunes(AgregarDias(ObtenerInicioSemanaSanta(año), festivo.DiasPascua)),
-                        Nombre = festivo.Nombre
-                    };
-                    break;
-            }
-            return fechaFestivo;
-        }
+                Fecha = new DateTime(año, festivo.Mes, festivo.Dia),
+                Nombre = festivo.Nombre
+            };
+            break;
+        case 2:
+            fechaFestivo = new FechaFestivo
+            {
+                Fecha = SiguienteLunes(new DateTime(año, festivo.Mes, festivo.Dia)),
+                Nombre = festivo.Nombre
+            };
+            break;
+        case 3:
+            fechaFestivo = new FechaFestivo
+            {
+                Fecha = AgregarDias(ObtenerInicioSemanaSanta(año), festivo.DiasPascua),
+                Nombre = festivo.Nombre
+            };
+            break;
+        case 4:
+            fechaFestivo = new FechaFestivo
+            {
+                Fecha = SiguienteLunes(AgregarDias(ObtenerInicioSemanaSanta(año), festivo.DiasPascua)),
+                Nombre = festivo.Nombre
+            };
+            break;
+    }
+     if (fechaFestivo == null)
+    {
+        throw new InvalidOperationException("La fecha no puede ser nula");
+    }
+    
+    return fechaFestivo;
+}
+
 
         public async Task<IEnumerable<FechaFestivo>> ObtenerAño(int Año)
         {
