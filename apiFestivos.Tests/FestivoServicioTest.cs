@@ -73,24 +73,24 @@ public class FestivoServicioTests
         Assert.Equal(fechaEsperada, resultado.Fecha);
         Assert.Equal("Festivo Movible", resultado.Nombre);
     }
-// [Fact]
-// public void ObtenerFestivo_Tipo4_RetornaLunesSiguienteSemanaSanta()
-// {
-//     var mockRepositorio = new Mock<IFestivoRepositorio>();
-//     var festivoTipo4 = new Festivo 
-//     { 
-//         Dia = 1, 
-//         Mes = 4, 
-//         IdTipo = 4,
-//         Nombre = "Festivo Semana Santa"
-//     };
+[Fact]
+public void ObtenerFestivo_Tipo4_RetornaLunesSiguienteSemanaSanta()
+{
+    var mockRepositorio = new Mock<IFestivoRepositorio>();
+    var festivoTipo4 = new Festivo 
+    { 
+        Dia = 1, 
+        Mes = 4, 
+        IdTipo = 4,
+        Nombre = "Festivo Semana Santa"
+    };
 
-//     var servicio = new FestivoServicio(mockRepositorio.Object);
-//     var resultado = servicio.ObtenerFestivo(2024, festivoTipo4);
-//     var fechaEsperada = new DateTime(2024, 4, 1);
-//     Assert.Equal(fechaEsperada, resultado.Fecha);
-//     Assert.Equal("Festivo Semana Santa", resultado.Nombre);
-// }
+    var servicio = new FestivoServicio(mockRepositorio.Object);
+    var resultado = servicio.ObtenerFestivo(2024, festivoTipo4);
+    var fechaEsperada = new DateTime(2024, 4, 1);
+    Assert.Equal(fechaEsperada, resultado.Fecha);
+    Assert.Equal("Festivo Semana Santa", resultado.Nombre);
+}
 
 
 }
